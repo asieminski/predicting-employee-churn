@@ -4,8 +4,6 @@ library(ggridges)
 library(ggalluvial)
 library(ggcorrplot)
 
-
-
 data_tidied <- readRDS("Data/data_tidied.RDS")
 
 # splitting data so that we can only explore the training set
