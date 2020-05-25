@@ -6,6 +6,7 @@ library(ggcorrplot)
 
 data_tidied <- readRDS("Data/data_tidied.RDS")
 
+set.seed(1)
 # splitting data so that we can only explore the training set
 data_split <- initial_split(data_tidied, prop = 0.75, strata = "Attrition")
 
@@ -15,6 +16,7 @@ test <- testing(data_split)
 #save data splits
 saveRDS(train, "Data/train.RDS")
 saveRDS(test, "Data/test.RDS")
+saveRDS(data_split, "Data/data_split.RDS")
 
 train %>% 
   pivot_longer(c("MonthlyIncome", "MonthlyRate"),

@@ -15,6 +15,8 @@ data_var_type_changed <- data_raw %>%
   mutate_at(.vars = ord_preds, .funs = as.ordered)
 
 skimr::skim(data_var_type_changed)
+#notice irrelevant variables and class imbalance
+
 
 #irrelevant variables removed
 data_tidied <- data_var_type_changed %>% 
