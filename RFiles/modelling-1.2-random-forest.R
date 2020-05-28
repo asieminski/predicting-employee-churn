@@ -66,6 +66,7 @@ rand_for_res_1_to_1 <- create_rand_for_res(upsamp_rec_1_to_1)
 
 inspect_rand_for_res(rand_for_res_1_to_1)
 #approx 78% roc_auc and 40% j index
+<<<<<<< HEAD
 
 
 # Upsampling in 1 to 1 proportion increases performance 
@@ -87,3 +88,17 @@ final_rand_for_preds <- final_rand_for_res %>%
   collect_predictions()
 
 save.image("Output/rand_for_output.RData")
+=======
+save.image("Output/rand_for_output.RData")
+
+# Upsampling in 1 to 1 proportion increases performance 
+# for both tree-based and linear models;
+# we will only use that preprocessing technique onwards
+
+
+
+
+
+
+
+>>>>>>> cad808dffc48ca560e9953dcb8eecf3ce7fc0642

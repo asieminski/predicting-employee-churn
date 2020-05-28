@@ -15,6 +15,10 @@ final_fit <- last_fit(final_elas_net_wf,
                               j_index,
                               roc_auc))
 final_model_fitted <- fit(final_elas_net_wf, data = train)
+
+final_fit %>% 
+  collect_metrics()
+
 vip(final_model_fitted)
 
 coefficients <- final_fit %>% 

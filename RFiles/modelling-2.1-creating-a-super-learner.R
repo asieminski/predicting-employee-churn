@@ -1,5 +1,7 @@
 library(tidymodels)
 library(tidyverse)
+library(themis)
+set.seed(1)
 
 load("Output/elastic_net_outputs.RData")
 load("Output/rand_for_output.RData")
@@ -56,7 +58,8 @@ sup_glm_mod <- logistic_reg() %>%
   set_engine("glm")
 
 sup_glm_rec <- recipe(Attrition ~ elas_net + rand_for + rbf + xgb, 
-                      data = table_of_predictions)
+                      data = table_of_predictions) %>% 
+  step_upsample(Attrition)
 
 
 sup_glm_wf <- workflow() %>% 
