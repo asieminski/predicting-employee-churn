@@ -41,5 +41,17 @@ rbf_res %>%
 best_rbf_hypers <- rbf_res %>% 
   select_best("j_index")
 
-save.image("Output/rbf_output.RData")
 
+
+final_rbf_wf <- finalize_workflow(rbf_wf, parameters = best_rbf_hypers)
+
+final_rbf_res <- final_rbf_wf %>% 
+  fit_resamples(
+    resamples = train_folds,
+    control = control_grid(save_pred = TRUE)
+  )
+
+final_rbf_preds <- final_rbf_res %>% 
+  collect_predictions()
+
+save.image("Output/rbf_output.RData")

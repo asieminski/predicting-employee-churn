@@ -73,4 +73,25 @@ inspect_elas_net_res(elas_net_res_1_to_1)
 
 best_elas_net_hypers <- select_best(elas_net_res_1_to_1,metric = "j_index")
 
+
+
+elas_net_wf <- workflow() %>% 
+  add_model(elas_net_mod) %>% 
+  add_recipe(upsamp_rec_1_to_1)
+
+final_elas_net_wf <- finalize_workflow(elas_net_wf, best_elas_net_hypers)
+
+final_elas_net_res <- final_elas_net_wf %>% 
+  fit_resamples(
+    resamples = train_folds,
+    control = control_grid(save_pred = TRUE)
+  )
+
+final_elas_net_preds <- final_elas_net_res %>% 
+  collect_predictions()
+
 save.image("Output/elastic_net_outputs.RData")
+
+
+
+

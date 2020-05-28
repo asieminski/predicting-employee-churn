@@ -66,12 +66,21 @@ xgb_res %>%
 best_xgb_hypers <- xgb_res %>% 
   select_best("j_index")
 
+
+
+final_xgb_wf <- finalize_workflow(xgb_wf, 
+                                  parameters = best_xgb_hypers)
+
+final_xgb_res <- final_xgb_wf %>% 
+  fit_resamples(
+    resamples = train_folds,
+    control = control_grid(save_pred = TRUE)
+  )
+
+final_xgb_preds <- final_xgb_res %>% 
+  collect_predictions()
+
 save.image("Output/xgb_output.RData")
-
-
-
-
-
 
 
 

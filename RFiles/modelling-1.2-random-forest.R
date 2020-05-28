@@ -66,15 +66,24 @@ rand_for_res_1_to_1 <- create_rand_for_res(upsamp_rec_1_to_1)
 
 inspect_rand_for_res(rand_for_res_1_to_1)
 #approx 78% roc_auc and 40% j index
-save.image("Output/rand_for_output.RData")
+
 
 # Upsampling in 1 to 1 proportion increases performance 
 # for both tree-based and linear models; 
 # we will only use that preprocessing technique onwards
 
+best_rand_for_hypers <- rand_for_res_1_to_1 %>% 
+  select_best("j_index")
 
+final_rand_for_wf <- finalize_workflow(rand_for_wf, best_rand_for_hypers)
 
+final_rand_for_res <- final_rand_for_wf %>% 
+  fit_resamples(
+    resamples = train_folds,
+    control = control_grid(save_pred = TRUE)
+  )
 
+final_rand_for_preds <- final_rand_for_res %>% 
+  collect_predictions()
 
-
-
+save.image("Output/rand_for_output.RData")
